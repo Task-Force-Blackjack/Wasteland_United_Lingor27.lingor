@@ -10,7 +10,10 @@ if(mutexScriptInProgress) exitWith {
 	player globalChat localize "STR_WL_Errors_InProgress";
 };
 
-private["_stringEscapePercent","_totalDuration","_lockDuration","_iteration","_iterationPercentage","_currSpawnBeaconFaction", "_destroyOrSteal", "_currBeaconOwnerUID", "_currBeaconTemp"];
+private["_stringEscapePercent","_totalDuration","_lockDuration","_iteration","_iterationPercentage","_currSpawnBeaconFaction", "_destroyOrSteal", "_currBeaconOwnerUID", "_currBeaconTemp", "_isOwn","_shouldCancel"];
+
+_shouldCancel = false;
+_isOwn = true;
 
 if(vehicle player != player) exitWith {
 	player globalChat localize "STR_WL_Errors_InVehicle";
@@ -87,7 +90,18 @@ switch (_destroyOrSteal) do {
 		};
     };
     case 1:{ // Destroy
-    
+		
+		if(str(side player) == (_currSpawnBeacon getVariable "faction")) then {
+			if(getPlayerUID player != (_currSpawnBeacon getVariable "ownerUID")) then { 
+				mutexScriptInProgress = false;
+				hint "You cannot destroy an allys spawn beacon";
+				_shouldCancel = true;
+			}else{ 	
+				 _isOwn = true;
+			};
+		};
+		if (_shouldCancel) exitWith {};
+		
    	 	_totalDuration = 30; // This will NOT be easy >:)
 		_lockDuration = _totalDuration;
         mutexScriptInProgress = true;
@@ -111,7 +125,7 @@ switch (_destroyOrSteal) do {
 			2 cutText [format["Destroy spawn beacon %1%2 complete", _iterationPercentage, _stringEscapePercent], "PLAIN DOWN", 1];
 			sleep 1;
 				    
-			if(player distance _currSpawnBeacon > 50) exitWith { // If the player dies, revert state.
+			if(player distance _currSpawnBeacon > 5) exitWith { // If the player dies, revert state.
 				2 cutText ["Destroying spawn beacon interrupted...", "PLAIN DOWN", 1];
 		        mutexScriptInProgress = false;
 			};
@@ -124,11 +138,15 @@ switch (_destroyOrSteal) do {
                 _currBeaconTemp = (nearestObjects [getpos player, ["Satelit"],  5]);
                 
 		        if(count _currBeaconTemp == 0) then { // Check if the beacon has been removed since curr player started interacting with it.
-                	hint "Your attempt to destroy the enemy spawn beacon was unsuccessful.";
+                	hint "Your attempt to destroy the spawn beacon was unsuccessful.";
                     mutexScriptInProgress = false;
                 } else {
 	               	deleteVehicle (nearestobjects [getpos player, ["Satelit"],  5] select 0);
-	                hint "You have successfully destroyed the enemy spawn beacon.";
+					if(_isOwn) then {
+						hint "You have successfully destroyed your spawn beacon.";
+					}else{
+						hint "You have successfully destroyed the enemy spawn beacon.";
+					};
 			        mutexScriptInProgress = false;	
                                     
 	                [_currBeaconOwnerUID] execVM "client\functions\cleanBeaconArrays.sqf"; // Now that the previous instance of the spawn beacon has been technically removed, remove it from the spawn locations list.
