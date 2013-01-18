@@ -60,6 +60,7 @@ waituntil {!(IsNull (findDisplay 46))};
 [] execVM "client\functions\loadAtmosphere.sqf";
 [] execVM "client\functions\playerTags.sqf";
 [] execVM "client\functions\groupTags.sqf";
+[] execVM "addons\WeaponsBlackList\WeaponsBlackList.sqf";
 [] call updateMissionsMarkers;
 [] call updateRadarMarkers;
 if (isNil "FZF_IC_INIT") then   {
