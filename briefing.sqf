@@ -26,6 +26,10 @@ Player CreateDiaryRecord["[=TFB=] Changelog",
 "Black Edition",
 "
 <br/>
+		[Added] - Food/Water Truck Supply Mission by Kettlewell<br/>
+		[Added] - Spawn Beacon Posision Fix by Kettlewell<br/>
+		[Added] - Destroy Spawn Beacon by Kettlewell<br/>
+		[Added] - Weapons Spawn in Random Building by marker<br/>
 		[Added] - Backpacks<br/>
 		[Added] - TFB information to briefing<br/>
 		[Added] - No Damage to gas stations<br/>
@@ -34,8 +38,12 @@ Player CreateDiaryRecord["[=TFB=] Changelog",
 		[Added] - TFB Custom Splash Screen with server rules<br/>
 		[Added] - IED's and Mines to more ammo boxes<br/>
 		[Added] - [=TFB=] Server Rules to Briefing<br/>
-		[Adjusted] - M110 TWS and MK17 TWS Prices<br/>
-		[Removed] - AS50 from BAF OutPost Box<br/>		
+		[Added] - TWS Blackout Screen for Black Listed Weapons<br/>
+		[Added] - Random wilf life spawns<br/>
+		[Added] - Random Boat Spawns<br/>
+		[Added] - Random Plane Spawns<br/>
+		[Fixed} - Jerry can refuel problem<br/>
+		[Adjusted] - M110 TWS and MK17 TWS Prices<br/>		
 "
 ]
 ];
