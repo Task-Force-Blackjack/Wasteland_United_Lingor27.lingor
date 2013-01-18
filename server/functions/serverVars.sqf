@@ -191,7 +191,8 @@ staticBoatList = ["Fishing_Boat",
 staticwildlifeList = ["CHN_Crocodile"];
 
 //Object List - Random Planes.
-staticPlaneList = ["ibr_maule_M7","ibr_tucano_lin"];
+staticPlaneList = ["ibr_maule_M7",
+				"ibr_tucano_lin"];
 
 //Random Weapon List - Change this to what you want to spawn in cars.
 vehicleWeapons = ["AK_107_GL_kobra",
